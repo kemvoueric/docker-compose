@@ -1,0 +1,118 @@
+version : "3.3"
+services:
+#####################################################
+    git:
+      image: git_focus
+      command: git clone https://github.com/kemvoueric/maven-project.git
+      container_name: git
+     
+      volumes:
+      
+         - $PWD/volume:/git/
+###########################################################
+    nginx:
+      image: nginx
+     # command: ls
+      container_name: client
+      restart: always
+      expose:
+        - 90
+        - 100
+        - 85
+      ports:
+        - 85:90
+       
+      environment:
+         CITY: douala
+         COUNTRY: cameroon
+         DEVOPS: 100000+
+      volumes:
+      
+         - $PWD/volume:/steph
+        
+    #########################################################################################
+    # tomcat:
+    #    image: tomcat:8.0-alpine
+    #    depends_on:
+    #      - dockerfile
+    #      - maven
+    #      - git 
+    #    expose:
+    #     - 90
+    #     - 100
+    #    container_name: tomcat
+    #    restart: always
+    #   # command: ls
+    #    environment:
+    #      CITY: douala
+    #      COUNTRY: cameroon
+    #      DEVOPS: 100000+
+       
+    #    ports: 
+    #     - 86:8080
+    #    volumes:
+        
+    #      - $PWD/volume/maven-project/webapp/target/webapp.war:/usr/local/tomcat/webapps/webapp.war
+#########################################################################################################
+    frontend:
+       image: ubuntu/nginx
+       expose:
+        - 90
+        - 100
+       container_name: frontend
+       restart: always
+       #command: bash /steph/file
+       ports:
+         - 87:80
+       environment:
+         CITY: douala
+         COUNTRY: cameroon
+         DEVOPS: 100000+
+       volumes:
+         
+         - $PWD/volume:/steph
+
+########################################################################################################
+
+    dockerfile:
+       image: maven_java:1.0.0
+       build: .
+       container_name: dockerfile
+#####################################################################################################################
+    httpd:
+       image: httpd
+       expose:
+        - 90
+        - 100
+       container_name: httpd
+       restart: always
+      
+       ports:
+        - 90:80
+       environment:
+         CITY: douala
+         COUNTRY: cameroon
+         DEVOPS: 100000+
+       volumes:
+         - $PWD/volume:/steph
+         - $PWD/public-html:/usr/local/apache2/htdocs/public-html
+
+         ########################################################
+    maven:
+       image: maven_java:1.0.0
+       depends_on:
+         - dockerfile
+         - git
+       expose:
+        - 90
+        - 100
+       container_name: maven-java
+       command: mvn clean install package
+       restart: on-failure
+       environment:
+         CITY: douala
+         COUNTRY: cameroon
+         DEVOPS: 100000+
+       volumes:
+         - $PWD/volume/maven-project:/maven
+

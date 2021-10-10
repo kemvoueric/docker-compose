@@ -1,0 +1,4 @@
+FROM  kemvoueric/ubuntu_focus_all
+RUN mkdir /git
+WORKDIR /git 
+

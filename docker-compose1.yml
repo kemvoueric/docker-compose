@@ -1,0 +1,20 @@
+version : "3.3"
+services:
+    tomcat:
+       image: tomcat:8.0-alpine
+       expose:
+        - 90
+        - 100
+       container_name: tomcat
+       restart: always
+      # command: ls
+       environment:
+         CITY: douala
+         COUNTRY: cameroon
+         DEVOPS: 100000+
+       
+       ports: 
+        - 86:8080
+       volumes:
+        
+         - $PWD/volume/maven-project/webapp/target/webapp.war:/usr/local/tomcat/webapps/webapp.war
