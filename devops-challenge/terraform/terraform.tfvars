@@ -1,0 +1,17 @@
+project_name  = "flask-prod"
+vpc_id        = "vpc-0a1b2c3d4e5f67890"
+subnet_id     = "subnet-0ab1c2d3e4f5a6b7c"
+subnet_ids    = ["subnet-0ab1c2d3e4f5a6b7c", "subnet-0bc2d3e4f5a6b7c8d"]
+key_pair_name = "prod-keypair"
+ami_id =  "ami-0c02fb55956c7d316"
+environment = "staging"
+ebs_volume_size = 30
+ebs_volume_type = "gp3"
+ebs_encrypted   = true
+health_check_path       = "/health"
+health_check_interval   = 15
+health_check_timeout    = 4
+healthy_threshold       = 3
+unhealthy_threshold     = 3
+health_check_matcher    = "200-299"
+aws_region = "us-east-1"
